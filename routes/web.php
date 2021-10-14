@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web RoutesA
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -14,5 +17,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('posts', ['posts' => Post::latest()->get()]);
 });
+
+Route::get('/posts/{post}', function($id) {
+    
+    return view('post', ['post' => Post::findOrFail($id)]);
+});
+
+Route::get('/categories/{category:slug}', function(Category $category) {
+
+    return view('posts', ['posts' => $category->posts ]);
+});
+
+Route::get('/authors/{author:username}', function(User $author) {
+
+    return view('posts', ['posts' => $author->posts ]);
+});
+
+
+
+
+
+    
