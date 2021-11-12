@@ -45,4 +45,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id'); // ukazali foreign key kotoryi v baze
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

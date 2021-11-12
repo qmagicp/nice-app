@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
 <link href="https://unpkg.com/tailwindcss@2.2.17/dist/tailwind.min.css" rel="stylesheet" type="text/css">
 
  
@@ -22,7 +23,19 @@
             </div>
 
             <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+
+                @auth
+                    <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+
+                    <form method="POST" action="/logout" class="text-xs font-bold uppercase text-blue-500 ml-6">
+                        @csrf
+
+                        <button type="submit">Log Out</button>
+                    </form>
+                @else
+                    <a href="/register" class="text-xs font-bold uppercase">Register</a>  
+                    <a href="/login" class="ml-6 text-xs font-bold uppercase">Login</a>   
+                @endauth
 
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
@@ -62,4 +75,7 @@
             </div>
         </footer>
     </section>
+
+    <x-flash />
+
 </body>
